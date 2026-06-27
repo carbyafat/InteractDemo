@@ -5,70 +5,70 @@ using UnityEngine;
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Stores the result values produced by one main-color analysis pass.
+    /// 儲存一次主色分析產生的結果資料。
     /// </summary>
     [System.Serializable]
     public class ColorAnalysisResult
     {
         /// <summary>
-        /// Final dominant color category.
+        /// 最終判定的主要顏色分類。
         /// </summary>
         public MainColorType MainColor;
 
         /// <summary>
-        /// Average color of all valid non-transparent pixels.
+        /// 所有效不透明像素的平均顏色。
         /// </summary>
         public Color AverageColor;
 
         /// <summary>
-        /// Representative display color for the final category.
+        /// 最終分類對應的代表顯示色。
         /// </summary>
         public Color MainColorPreview;
 
         /// <summary>
-        /// Number of pixels used by the analyzer after alpha filtering.
+        /// 經過透明度過濾後，實際用於分析的像素數量。
         /// </summary>
         public int ValidPixelCount;
 
         /// <summary>
-        /// Total number of pixels in the source image.
+        /// 來源圖片的總像素數量。
         /// </summary>
         public int TotalPixelCount;
 
         /// <summary>
-        /// Ratio of valid pixels in the source image.
+        /// 有效像素在來源圖片中的比例。
         /// </summary>
         public float ValidPixelRatio;
 
         /// <summary>
-        /// Ratio of the strongest color category among valid pixels.
+        /// 有效像素中，比例最高的顏色分類占比。
         /// </summary>
         public float DominantRatio;
 
         /// <summary>
-        /// Ratio of the second strongest color category among valid pixels.
+        /// 有效像素中，比例第二高的顏色分類占比。
         /// </summary>
         public float SecondRatio;
 
         /// <summary>
-        /// Difference between dominant and second strongest ratios.
+        /// 第一名與第二名顏色比例之間的差距。
         /// </summary>
         public float DominanceGap;
 
         /// <summary>
-        /// True when the image has no clearly dominant color.
+        /// 當圖片沒有明確主色時為 true。
         /// </summary>
         public bool IsMixed;
 
         /// <summary>
-        /// Sorted color ratios for debug display.
+        /// 已排序的顏色比例，用於 debug 顯示。
         /// </summary>
         public List<ColorRatio> Ratios = new List<ColorRatio>();
 
         /// <summary>
-        /// Formats the result for Console or UI text output.
+        /// 將結果格式化成 Console 或 UI 文字。
         /// </summary>
-        /// <returns>Human-readable color analysis summary.</returns>
+        /// <returns>方便閱讀的顏色分析摘要。</returns>
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();

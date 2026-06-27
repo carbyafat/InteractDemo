@@ -3,50 +3,50 @@ using UnityEngine;
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Stores the result values produced by one RGB image analysis.
+    /// 儲存一次 RGB 圖片分析產生的結果資料。
     /// </summary>
     [System.Serializable]
     public class RgbAnalysisResult
     {
         /// <summary>
-        /// Width of the analyzed texture in pixels.
+        /// 被分析貼圖的寬度，單位為像素。
         /// </summary>
         public int Width;
 
         /// <summary>
-        /// Height of the analyzed texture in pixels.
+        /// 被分析貼圖的高度，單位為像素。
         /// </summary>
         public int Height;
 
         /// <summary>
-        /// Average color converted to Unity's 0-1 Color format.
+        /// 轉換成 Unity 0-1 Color 格式的平均顏色。
         /// </summary>
         public Color AverageColor;
 
         /// <summary>
-        /// Average red channel value in 0-255 range.
+        /// 紅色通道平均值，範圍 0-255。
         /// </summary>
         public float AverageR;
 
         /// <summary>
-        /// Average green channel value in 0-255 range.
+        /// 綠色通道平均值，範圍 0-255。
         /// </summary>
         public float AverageG;
 
         /// <summary>
-        /// Average blue channel value in 0-255 range.
+        /// 藍色通道平均值，範圍 0-255。
         /// </summary>
         public float AverageB;
 
         /// <summary>
-        /// Simple brightness value calculated from the average RGB channels.
+        /// 由平均 RGB 通道計算出的簡易亮度值。
         /// </summary>
         public float Brightness;
 
         /// <summary>
-        /// Formats the result for Console or UI text output.
+        /// 將結果格式化成 Console 或 UI 文字。
         /// </summary>
-        /// <returns>Human-readable analysis summary.</returns>
+        /// <returns>方便閱讀的分析摘要。</returns>
         public override string ToString()
         {
             return $"Size: {Width}x{Height}\n" +

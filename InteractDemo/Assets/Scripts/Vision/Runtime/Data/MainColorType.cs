@@ -1,71 +1,71 @@
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Fine-grained color categories produced by image color analysis.
+    /// 圖片顏色分析會輸出的細分顏色類別。
     /// </summary>
     public enum MainColorType
     {
-        /// <summary>Strong red hue.</summary>
+        /// <summary>明顯的紅色色相。</summary>
         Red,
 
-        /// <summary>Orange hue between red and yellow.</summary>
+        /// <summary>介於紅色與黃色之間的橘色色相。</summary>
         Orange,
 
-        /// <summary>Yellow hue.</summary>
+        /// <summary>黃色色相。</summary>
         Yellow,
 
-        /// <summary>Yellow-green hue.</summary>
+        /// <summary>黃綠色色相。</summary>
         Lime,
 
-        /// <summary>Green hue.</summary>
+        /// <summary>綠色色相。</summary>
         Green,
 
-        /// <summary>Blue-green hue.</summary>
+        /// <summary>藍綠色色相。</summary>
         Cyan,
 
-        /// <summary>Light blue hue.</summary>
+        /// <summary>淺藍色色相。</summary>
         SkyBlue,
 
-        /// <summary>Blue hue.</summary>
+        /// <summary>藍色色相。</summary>
         Blue,
 
-        /// <summary>Purple hue.</summary>
+        /// <summary>紫色色相。</summary>
         Purple,
 
-        /// <summary>Red-purple hue.</summary>
+        /// <summary>紅紫色色相。</summary>
         Magenta,
 
-        /// <summary>Pink hue.</summary>
+        /// <summary>粉紅色色相。</summary>
         Pink,
 
-        /// <summary>Dark low-saturation orange or yellow color.</summary>
+        /// <summary>偏暗、低飽和的橘色或黃色。</summary>
         Brown,
 
-        /// <summary>Light low-saturation orange or yellow color.</summary>
+        /// <summary>偏亮、低飽和的橘色或黃色。</summary>
         Beige,
 
-        /// <summary>Very bright low-saturation color.</summary>
+        /// <summary>非常明亮且低飽和的顏色。</summary>
         White,
 
-        /// <summary>Bright low-saturation gray.</summary>
+        /// <summary>偏亮、低飽和的灰色。</summary>
         LightGray,
 
-        /// <summary>Mid low-saturation gray.</summary>
+        /// <summary>中等亮度、低飽和的灰色。</summary>
         Gray,
 
-        /// <summary>Dark low-saturation gray.</summary>
+        /// <summary>偏暗、低飽和的灰色。</summary>
         DarkGray,
 
-        /// <summary>Very dark color.</summary>
+        /// <summary>非常暗的顏色。</summary>
         Black,
 
-        /// <summary>No meaningful opaque pixels were found.</summary>
+        /// <summary>沒有找到有意義的不透明像素。</summary>
         Transparent,
 
-        /// <summary>No single color category is dominant enough.</summary>
+        /// <summary>沒有任何單一顏色分類足夠突出。</summary>
         Mixed,
 
-        /// <summary>Fallback when analysis cannot classify the input.</summary>
+        /// <summary>無法分類輸入時使用的保底類別。</summary>
         Unknown
     }
 }

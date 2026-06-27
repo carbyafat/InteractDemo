@@ -7,7 +7,7 @@ using UnityEngine;
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Provides main-color classification methods for Texture2D images.
+    /// 提供 Texture2D 圖片的主色分類方法。
     /// </summary>
     public static class ColorImageAnalyzer
     {
@@ -20,10 +20,10 @@ namespace InteractDemo.Vision
         private const float MixedGapThreshold = 0.12f;
 
         /// <summary>
-        /// Analyzes a Texture2D and classifies its dominant color.
+        /// 分析一張 Texture2D，並分類它的主要顏色。
         /// </summary>
-        /// <param name="source">Texture2D image to analyze.</param>
-        /// <returns>Color analysis result, or null if the input is invalid.</returns>
+        /// <param name="source">要分析的 Texture2D 圖片。</param>
+        /// <returns>顏色分析結果；如果輸入無效則回傳 null。</returns>
         public static ColorAnalysisResult Analyze(Texture2D source)
         {
             if (source == null)
@@ -36,7 +36,7 @@ namespace InteractDemo.Vision
             {
                 OpenCVMatUtils.Texture2DToMat(source, rgbaMat);
 
-                byte[] pixels = new byte[rgbaMat.total() * rgbaMat.channels()];
+                byte[] pixels = new byte[(int)(rgbaMat.total() * rgbaMat.channels())];
                 rgbaMat.get(0, 0, pixels);
 
                 return AnalyzeRgbaPixels(pixels, source.width, source.height);
@@ -44,10 +44,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Returns a representative Unity color for a color category.
+        /// 取得指定顏色分類對應的 Unity 預覽色。
         /// </summary>
-        /// <param name="colorType">Color category to preview.</param>
-        /// <returns>Unity Color for display in UI.</returns>
+        /// <param name="colorType">要預覽的顏色分類。</param>
+        /// <returns>可用於 UI 顯示的 Unity Color。</returns>
         public static Color GetPreviewColor(MainColorType colorType)
         {
             switch (colorType)
@@ -77,12 +77,12 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Classifies RGBA pixel data into color ratios and a final main color.
+        /// 將 RGBA 像素資料分類成顏色比例，並產生最終主色。
         /// </summary>
-        /// <param name="pixels">RGBA pixel byte array.</param>
-        /// <param name="width">Source image width.</param>
-        /// <param name="height">Source image height.</param>
-        /// <returns>Color analysis result.</returns>
+        /// <param name="pixels">RGBA 像素 byte 陣列。</param>
+        /// <param name="width">來源圖片寬度。</param>
+        /// <param name="height">來源圖片高度。</param>
+        /// <returns>顏色分析結果。</returns>
         private static ColorAnalysisResult AnalyzeRgbaPixels(byte[] pixels, int width, int height)
         {
             Dictionary<MainColorType, int> counts = CreateColorCountMap();
@@ -138,12 +138,12 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Classifies a single RGB pixel into one color category.
+        /// 將單一 RGB 像素分類到一種顏色類別。
         /// </summary>
-        /// <param name="r">Red channel in 0-255 range.</param>
-        /// <param name="g">Green channel in 0-255 range.</param>
-        /// <param name="b">Blue channel in 0-255 range.</param>
-        /// <returns>Color category for the pixel.</returns>
+        /// <param name="r">紅色通道，範圍 0-255。</param>
+        /// <param name="g">綠色通道，範圍 0-255。</param>
+        /// <param name="b">藍色通道，範圍 0-255。</param>
+        /// <returns>此像素對應的顏色分類。</returns>
         private static MainColorType ClassifyPixel(byte r, byte g, byte b)
         {
             Color.RGBToHSV(new Color(r / 255f, g / 255f, b / 255f), out float hue, out float saturation, out float value);
@@ -162,10 +162,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Classifies low-saturation pixels by brightness.
+        /// 依照亮度分類低飽和度像素。
         /// </summary>
-        /// <param name="value">HSV value channel in 0-1 range.</param>
-        /// <returns>Neutral color category.</returns>
+        /// <param name="value">HSV 明度通道，範圍 0-1。</param>
+        /// <returns>中性色分類。</returns>
         private static MainColorType ClassifyNeutral(float value)
         {
             if (value >= WhiteValueThreshold)
@@ -179,13 +179,13 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Detects brown and beige before general hue classification.
+        /// 在一般色相分類前，先判斷棕色與米色。
         /// </summary>
-        /// <param name="hueDegrees">Hue in degrees.</param>
-        /// <param name="saturation">HSV saturation in 0-1 range.</param>
-        /// <param name="value">HSV value in 0-1 range.</param>
-        /// <param name="earthColor">Detected brown or beige category.</param>
-        /// <returns>True when the pixel is classified as brown or beige.</returns>
+        /// <param name="hueDegrees">色相角度。</param>
+        /// <param name="saturation">HSV 飽和度，範圍 0-1。</param>
+        /// <param name="value">HSV 明度，範圍 0-1。</param>
+        /// <param name="earthColor">偵測到的棕色或米色分類。</param>
+        /// <returns>如果像素被分類為棕色或米色，回傳 true。</returns>
         private static bool IsBrownOrBeige(float hueDegrees, float saturation, float value, out MainColorType earthColor)
         {
             earthColor = MainColorType.Unknown;
@@ -210,12 +210,12 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Classifies saturated pixels by hue angle.
+        /// 依照色相角度分類高飽和度像素。
         /// </summary>
-        /// <param name="hueDegrees">Hue in degrees.</param>
-        /// <param name="saturation">HSV saturation in 0-1 range.</param>
-        /// <param name="value">HSV value in 0-1 range.</param>
-        /// <returns>Hue-based color category.</returns>
+        /// <param name="hueDegrees">色相角度。</param>
+        /// <param name="saturation">HSV 飽和度，範圍 0-1。</param>
+        /// <param name="value">HSV 明度，範圍 0-1。</param>
+        /// <returns>依照色相得到的顏色分類。</returns>
         private static MainColorType ClassifyHue(float hueDegrees, float saturation, float value)
         {
             if (hueDegrees < 12f || hueDegrees >= 348f)
@@ -243,9 +243,9 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Creates a count map with all color categories initialized.
+        /// 建立已初始化所有顏色分類的計數表。
         /// </summary>
-        /// <returns>Dictionary from color category to pixel count.</returns>
+        /// <returns>顏色分類到像素數量的對照表。</returns>
         private static Dictionary<MainColorType, int> CreateColorCountMap()
         {
             Dictionary<MainColorType, int> counts = new Dictionary<MainColorType, int>();
@@ -261,11 +261,11 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Builds sorted color ratios from raw pixel counts.
+        /// 依照原始像素數量建立排序後的顏色比例。
         /// </summary>
-        /// <param name="counts">Pixel counts by color category.</param>
-        /// <param name="validPixelCount">Number of valid pixels used by the analysis.</param>
-        /// <returns>Descending list of color ratios.</returns>
+        /// <param name="counts">各顏色分類的像素數量。</param>
+        /// <param name="validPixelCount">本次分析使用的有效像素數量。</param>
+        /// <returns>由高到低排序的顏色比例清單。</returns>
         private static List<ColorRatio> BuildSortedRatios(Dictionary<MainColorType, int> counts, int validPixelCount)
         {
             List<ColorRatio> ratios = new List<ColorRatio>();
@@ -282,10 +282,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Creates a result for images with no valid opaque pixels.
+        /// 建立沒有有效不透明像素時的分析結果。
         /// </summary>
-        /// <param name="totalPixelCount">Total number of source pixels.</param>
-        /// <returns>Transparent color analysis result.</returns>
+        /// <param name="totalPixelCount">來源圖片總像素數。</param>
+        /// <returns>透明圖片的顏色分析結果。</returns>
         private static ColorAnalysisResult CreateTransparentResult(int totalPixelCount)
         {
             return new ColorAnalysisResult

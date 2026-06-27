@@ -1,36 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Test component for classifying the main color of a Texture2D.
+    /// 用於測試 Texture2D 主色分類的元件。
     /// </summary>
     public class ColorAnalysisTester : MonoBehaviour
     {
-        [Header("Input")]
-        [Tooltip("Texture2D image to classify.")]
+        [Header("輸入")]
+        [Tooltip("要分類主色的 Texture2D 圖片。")]
         [SerializeField] private Texture2D sourceTexture;
 
-        [Header("Optional Output")]
-        [Tooltip("Optional RawImage used to preview the analyzed texture.")]
+        [Header("可選輸出")]
+        [Tooltip("可選的 RawImage，用來預覽被分析的貼圖。")]
         [SerializeField] private RawImage sourcePreview;
 
-        [Tooltip("Optional Image whose color will be set to the final main color preview.")]
+        [Tooltip("可選的 Image，顏色會設定為最終主色的預覽色。")]
         [SerializeField] private Image mainColorPreview;
 
-        [Tooltip("Optional Image whose color will be set to the average color of valid pixels.")]
+        [Tooltip("可選的 Image，顏色會設定為有效像素的平均色。")]
         [SerializeField] private Image averageColorPreview;
 
-        [Tooltip("Optional Text used to display the classification result.")]
-        [SerializeField] private Text resultText;
+        [Tooltip("可選的 TMP 文字，用來顯示分類結果。")]
+        [SerializeField] private TMP_Text resultText;
 
-        [Header("Run")]
-        [Tooltip("If true, analyzes the assigned texture when Play mode starts.")]
+        [Header("執行")]
+        [Tooltip("若為 true，進入 Play 模式時會分析指定貼圖。")]
         [SerializeField] private bool analyzeOnStart = true;
 
         /// <summary>
-        /// Unity lifecycle method that optionally runs the color analysis at startup.
+        /// Unity 生命週期方法，可選擇在啟動時執行顏色分析。
         /// </summary>
         private void Start()
         {
@@ -39,7 +40,7 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Analyzes the assigned Texture2D and updates optional debug UI.
+        /// 分析指定的 Texture2D，並更新可選的 debug UI。
         /// </summary>
         [ContextMenu("Analyze Assigned Texture")]
         public void AnalyzeAssignedTexture()

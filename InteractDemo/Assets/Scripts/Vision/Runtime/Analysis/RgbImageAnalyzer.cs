@@ -5,15 +5,15 @@ using UnityEngine;
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Provides RGB analysis methods for Texture2D images.
+    /// 提供 Texture2D 圖片的 RGB 分析方法。
     /// </summary>
     public static class RgbImageAnalyzer
     {
         /// <summary>
-        /// Analyzes a Texture2D and calculates its average RGB values.
+        /// 分析一張 Texture2D，並計算平均 RGB 數值。
         /// </summary>
-        /// <param name="source">Texture2D image to analyze.</param>
-        /// <returns>RGB analysis result, or null if the input is invalid.</returns>
+        /// <param name="source">要分析的 Texture2D 圖片。</param>
+        /// <returns>RGB 分析結果；如果輸入無效則回傳 null。</returns>
         public static RgbAnalysisResult Analyze(Texture2D source)
         {
             if (source == null)

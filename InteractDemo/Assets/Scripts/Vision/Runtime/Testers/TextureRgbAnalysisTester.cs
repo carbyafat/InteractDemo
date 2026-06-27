@@ -1,33 +1,34 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Test component for analyzing a Texture2D assigned in the Inspector.
+    /// 用於測試 Inspector 指定 Texture2D 的 RGB 分析元件。
     /// </summary>
     public class TextureRgbAnalysisTester : MonoBehaviour
     {
-        [Header("Input")]
-        [Tooltip("Texture2D image to analyze.")]
+        [Header("輸入")]
+        [Tooltip("要分析的 Texture2D 圖片。")]
         [SerializeField] private Texture2D sourceTexture;
 
-        [Header("Optional Output")]
-        [Tooltip("Optional RawImage used to preview the analyzed texture.")]
+        [Header("可選輸出")]
+        [Tooltip("可選的 RawImage，用來預覽被分析的貼圖。")]
         [SerializeField] private RawImage sourcePreview;
 
-        [Tooltip("Optional Image whose color will be set to the calculated average color.")]
+        [Tooltip("可選的 Image，顏色會設定為計算出的平均色。")]
         [SerializeField] private Image averageColorPreview;
 
-        [Tooltip("Optional Text used to display the analysis result.")]
-        [SerializeField] private Text resultText;
+        [Tooltip("可選的 TMP 文字，用來顯示分析結果。")]
+        [SerializeField] private TMP_Text resultText;
 
-        [Header("Run")]
-        [Tooltip("If true, analyzes the assigned texture when Play mode starts.")]
+        [Header("執行")]
+        [Tooltip("若為 true，進入 Play 模式時會分析指定貼圖。")]
         [SerializeField] private bool analyzeOnStart = true;
 
         /// <summary>
-        /// Unity lifecycle method that optionally runs the analysis at startup.
+        /// Unity 生命週期方法，可選擇在啟動時執行分析。
         /// </summary>
         private void Start()
         {
@@ -36,7 +37,7 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Analyzes the assigned Texture2D and updates optional preview UI.
+        /// 分析指定的 Texture2D，並更新可選的預覽 UI。
         /// </summary>
         [ContextMenu("Analyze Assigned Texture")]
         public void AnalyzeAssignedTexture()

@@ -9,6 +9,12 @@ Examples:
 - `RgbAnalysisResult`
 - `ColorAnalysisResult`
 - `MainColorType`
+- `ShapeAnalysisResult`
+- `PlayingCardDetectionResult`
+- `PlayingCardIdentityResult`
+- `PlayingCardColorGroup`
+- `PlayingCardSuit`
+- `VisionDebugMode`
 
 ## Analysis
 
@@ -18,6 +24,9 @@ Examples:
 
 - `RgbImageAnalyzer`
 - `ColorImageAnalyzer`
+- `ShapeImageProcessor`
+- `PlayingCardDetector`
+- `PlayingCardIdentityAnalyzer`
 
 ## Input
 
@@ -38,3 +47,6 @@ Examples:
 - `RgbAnalysisSourceTester`
 - `ColorAnalysisTester`
 - `WebCamRgbAnalysisTester`
+- `VisionDebugTester`
+- `PlayingCardDetectionTester`
+- `PlayingCardIdentityTester`

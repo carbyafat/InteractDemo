@@ -1,50 +1,52 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Test component for analyzing one selected source type through a shared Texture2D pipeline.
+    /// 用於測試不同輸入來源，並統一透過 Texture2D 流程進行 RGB 分析的元件。
     /// </summary>
     public class RgbAnalysisSourceTester : MonoBehaviour
     {
-        [Header("Input Source")]
-        [Tooltip("Type of image source to convert and analyze.")]
+        [Header("輸入來源")]
+        [Tooltip("要轉換並分析的影像來源類型。")]
         [SerializeField] private VisionInputSourceType sourceType = VisionInputSourceType.Texture2D;
 
-        [Tooltip("Texture2D used when Source Type is Texture2D.")]
+        [Tooltip("Source Type 為 Texture2D 時使用的貼圖。")]
         [SerializeField] private Texture2D textureSource;
 
-        [Tooltip("UI Image used when Source Type is UIImage.")]
+        [Tooltip("Source Type 為 UIImage 時使用的 UI Image。")]
         [SerializeField] private Image imageSource;
 
-        [Tooltip("RawImage used when Source Type is RawImage.")]
+        [Tooltip("Source Type 為 RawImage 時使用的 RawImage。")]
         [SerializeField] private RawImage rawImageSource;
 
-        [Tooltip("WebCamTexture used when Source Type is WebCamTexture.")]
+        [Tooltip("Source Type 為 WebCamTexture 時使用的 WebCamTexture。")]
         [SerializeField] private WebCamTexture webCamTextureSource;
 
-        [Header("Optional Output")]
-        [Tooltip("Optional RawImage used to preview the converted Texture2D.")]
+        [Header("可選輸出")]
+        [Tooltip("可選的 RawImage，用來預覽轉換後的 Texture2D。")]
         [SerializeField] private RawImage sourcePreview;
 
-        [Tooltip("Optional Image whose color will be set to the calculated average color.")]
+        [Tooltip("可選的 Image，顏色會設定為計算出的平均色。")]
         [SerializeField] private Image averageColorPreview;
 
-        [Tooltip("Optional Text used to display the analysis result.")]
-        [SerializeField] private Text resultText;
+        [Tooltip("可選的 TMP 文字，用來顯示分析結果。")]
+        [SerializeField] private TMP_Text resultText;
 
-        [Header("Run")]
-        [Tooltip("If true, analyzes the selected source when Play mode starts.")]
+        [Header("執行")]
+        [Tooltip("若為 true，進入 Play 模式時會分析選擇的來源。")]
         [SerializeField] private bool analyzeOnStart = true;
 
         /// <summary>
-        /// Temporary Texture2D created by source conversion and destroyed by this component.
+        /// 由來源轉換產生的暫時 Texture2D，會由此元件負責銷毀。
         /// </summary>
         private Texture2D runtimeTexture;
+        private bool ownsRuntimeTexture;
 
         /// <summary>
-        /// Unity lifecycle method that optionally runs the analysis at startup.
+        /// Unity 生命週期方法，可選擇在啟動時執行分析。
         /// </summary>
         private void Start()
         {
@@ -53,19 +55,22 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Unity lifecycle method used to release converted runtime textures.
+        /// Unity 生命週期方法，用來釋放執行時轉換出的貼圖。
         /// </summary>
         private void OnDestroy()
         {
             if (runtimeTexture != null)
             {
-                Destroy(runtimeTexture);
+                if (ownsRuntimeTexture)
+                    Destroy(runtimeTexture);
+
                 runtimeTexture = null;
+                ownsRuntimeTexture = false;
             }
         }
 
         /// <summary>
-        /// Converts the selected input source, analyzes it, and updates optional UI.
+        /// 轉換選擇的輸入來源、執行分析，並更新可選 UI。
         /// </summary>
         [ContextMenu("Analyze Selected Source")]
         public void AnalyzeSelectedSource()
@@ -91,15 +96,18 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Gets the Texture2D for the currently selected source type.
+        /// 取得目前選擇來源類型對應的 Texture2D。
         /// </summary>
-        /// <returns>Texture2D to analyze, or null if conversion fails.</returns>
+        /// <returns>要分析的 Texture2D；如果轉換失敗則回傳 null。</returns>
         private Texture2D GetSelectedSourceTexture()
         {
             if (runtimeTexture != null)
             {
-                Destroy(runtimeTexture);
+                if (ownsRuntimeTexture)
+                    Destroy(runtimeTexture);
+
                 runtimeTexture = null;
+                ownsRuntimeTexture = false;
             }
 
             switch (sourceType)
@@ -109,14 +117,20 @@ namespace InteractDemo.Vision
 
                 case VisionInputSourceType.UIImage:
                     runtimeTexture = VisionInputConverter.FromImage(imageSource);
+                    ownsRuntimeTexture = imageSource != null &&
+                                         imageSource.sprite != null &&
+                                         runtimeTexture != imageSource.sprite.texture;
                     return runtimeTexture;
 
                 case VisionInputSourceType.RawImage:
                     runtimeTexture = VisionInputConverter.FromRawImage(rawImageSource);
+                    ownsRuntimeTexture = rawImageSource != null &&
+                                         runtimeTexture != rawImageSource.texture;
                     return runtimeTexture;
 
                 case VisionInputSourceType.WebCamTexture:
                     runtimeTexture = VisionInputConverter.FromWebCamTexture(webCamTextureSource);
+                    ownsRuntimeTexture = runtimeTexture != null;
                     return runtimeTexture;
 
                 default:

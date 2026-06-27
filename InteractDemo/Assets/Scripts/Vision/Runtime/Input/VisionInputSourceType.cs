@@ -1,27 +1,27 @@
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Input source types supported by the RGB analysis test entry.
+    /// 影像分析測試入口支援的輸入來源類型。
     /// </summary>
     public enum VisionInputSourceType
     {
         /// <summary>
-        /// Analyze a Texture2D assigned directly in the Inspector.
+        /// 分析直接在 Inspector 指定的 Texture2D。
         /// </summary>
         Texture2D,
 
         /// <summary>
-        /// Analyze the Sprite texture used by a Unity UI Image.
+        /// 分析 Unity UI Image 使用的 Sprite 貼圖。
         /// </summary>
         UIImage,
 
         /// <summary>
-        /// Analyze the texture displayed by a Unity UI RawImage.
+        /// 分析 Unity UI RawImage 顯示的貼圖。
         /// </summary>
         RawImage,
 
         /// <summary>
-        /// Analyze a frame captured from a WebCamTexture.
+        /// 分析從 WebCamTexture 擷取的一幀畫面。
         /// </summary>
         WebCamTexture
     }

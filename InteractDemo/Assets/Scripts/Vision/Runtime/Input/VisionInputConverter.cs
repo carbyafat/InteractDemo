@@ -4,15 +4,15 @@ using UnityEngine.UI;
 namespace InteractDemo.Vision
 {
     /// <summary>
-    /// Converts Unity image source types into Texture2D for analysis.
+    /// 將 Unity 的各種影像來源轉換成可分析的 Texture2D。
     /// </summary>
     public static class VisionInputConverter
     {
         /// <summary>
-        /// Converts a UI Image source into a Texture2D.
+        /// 將 UI Image 來源轉換成 Texture2D。
         /// </summary>
-        /// <param name="image">UI Image whose Sprite should be analyzed.</param>
-        /// <returns>Texture2D for the Sprite area, or null if conversion fails.</returns>
+        /// <param name="image">要分析其 Sprite 的 UI Image。</param>
+        /// <returns>Sprite 範圍對應的 Texture2D；如果轉換失敗則回傳 null。</returns>
         public static Texture2D FromImage(Image image)
         {
             if (image == null || image.sprite == null)
@@ -50,10 +50,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Converts a RawImage source into a Texture2D.
+        /// 將 RawImage 來源轉換成 Texture2D。
         /// </summary>
-        /// <param name="rawImage">RawImage whose texture should be analyzed.</param>
-        /// <returns>Texture2D converted from the RawImage texture, or null if conversion fails.</returns>
+        /// <param name="rawImage">要分析其 texture 的 RawImage。</param>
+        /// <returns>由 RawImage texture 轉換出的 Texture2D；如果轉換失敗則回傳 null。</returns>
         public static Texture2D FromRawImage(RawImage rawImage)
         {
             if (rawImage == null || rawImage.texture == null)
@@ -66,10 +66,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Captures the current frame of a WebCamTexture as a Texture2D.
+        /// 將 WebCamTexture 目前畫面擷取成 Texture2D。
         /// </summary>
-        /// <param name="webCamTexture">Running WebCamTexture to capture.</param>
-        /// <returns>Texture2D containing the current camera frame, or null if unavailable.</returns>
+        /// <param name="webCamTexture">正在播放、準備擷取畫面的 WebCamTexture。</param>
+        /// <returns>包含目前相機畫面的 Texture2D；如果不可用則回傳 null。</returns>
         public static Texture2D FromWebCamTexture(WebCamTexture webCamTexture)
         {
             if (webCamTexture == null)
@@ -97,10 +97,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Converts a general Unity Texture into a Texture2D when the texture type is supported.
+        /// 在類型支援時，將一般 Unity Texture 轉換成 Texture2D。
         /// </summary>
-        /// <param name="texture">Source texture, such as Texture2D, WebCamTexture, or RenderTexture.</param>
-        /// <returns>Texture2D converted from the source texture, or null if unsupported.</returns>
+        /// <param name="texture">來源貼圖，例如 Texture2D、WebCamTexture 或 RenderTexture。</param>
+        /// <returns>由來源貼圖轉換出的 Texture2D；如果不支援則回傳 null。</returns>
         public static Texture2D FromTexture(Texture texture)
         {
             if (texture == null)
@@ -123,10 +123,10 @@ namespace InteractDemo.Vision
         }
 
         /// <summary>
-        /// Reads a RenderTexture into a Texture2D.
+        /// 將 RenderTexture 讀取成 Texture2D。
         /// </summary>
-        /// <param name="renderTexture">RenderTexture to read from.</param>
-        /// <returns>Texture2D containing the RenderTexture pixels, or null if input is invalid.</returns>
+        /// <param name="renderTexture">要讀取的 RenderTexture。</param>
+        /// <returns>包含 RenderTexture 像素的 Texture2D；如果輸入無效則回傳 null。</returns>
         public static Texture2D FromRenderTexture(RenderTexture renderTexture)
         {
             if (renderTexture == null)
