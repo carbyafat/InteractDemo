@@ -70,3 +70,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Third-party Asset Store package.
+# Keep this out of GitHub because it contains large native binaries and may be license-restricted.
+# Re-import OpenCV for Unity from the Asset Store when setting up the project on another machine.
+/[Aa]ssets/OpenCVForUnity/
