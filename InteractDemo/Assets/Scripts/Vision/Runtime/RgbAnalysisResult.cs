@@ -2,32 +2,51 @@ using UnityEngine;
 
 namespace InteractDemo.Vision
 {
-    // A simple data container for the result of one RGB analysis pass.
-    // Keeping this separate from the analyzer makes it easier to reuse the data in UI,
-    // gameplay mapping, debug logs, or future save files.
+    /// <summary>
+    /// Stores the result values produced by one RGB image analysis.
+    /// </summary>
     [System.Serializable]
     public class RgbAnalysisResult
     {
-        // Original texture size. Useful for checking whether Unity imported the image
-        // at the expected resolution.
+        /// <summary>
+        /// Width of the analyzed texture in pixels.
+        /// </summary>
         public int Width;
+
+        /// <summary>
+        /// Height of the analyzed texture in pixels.
+        /// </summary>
         public int Height;
 
-        // Unity color normalized to 0-1. This can be assigned directly to UI Image.color,
-        // materials, particles, or other Unity visual outputs.
+        /// <summary>
+        /// Average color converted to Unity's 0-1 Color format.
+        /// </summary>
         public Color AverageColor;
 
-        // Average channel values in the familiar 0-255 image range.
-        // Example: R=255, G=0, B=0 means pure red.
+        /// <summary>
+        /// Average red channel value in 0-255 range.
+        /// </summary>
         public float AverageR;
+
+        /// <summary>
+        /// Average green channel value in 0-255 range.
+        /// </summary>
         public float AverageG;
+
+        /// <summary>
+        /// Average blue channel value in 0-255 range.
+        /// </summary>
         public float AverageB;
 
-        // Very simple brightness value. This is only the average of R/G/B for now,
-        // not a perceptual luminance formula.
+        /// <summary>
+        /// Simple brightness value calculated from the average RGB channels.
+        /// </summary>
         public float Brightness;
 
-        // Controls how the result appears in Debug.Log and UI text.
+        /// <summary>
+        /// Formats the result for Console or UI text output.
+        /// </summary>
+        /// <returns>Human-readable analysis summary.</returns>
         public override string ToString()
         {
             return $"Size: {Width}x{Height}\n" +

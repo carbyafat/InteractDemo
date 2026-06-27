@@ -1,0 +1,28 @@
+# Unity generated folders.
+/InteractDemo/[Ll]ibrary/
+/InteractDemo/[Tt]emp/
+/InteractDemo/[Oo]bj/
+/InteractDemo/[Bb]uild/
+/InteractDemo/[Bb]uilds/
+/InteractDemo/[Ll]ogs/
+/InteractDemo/[Uu]ser[Ss]ettings/
+
+# Generated IDE and Unity project files.
+/InteractDemo/*.csproj
+/InteractDemo/*.sln
+/InteractDemo/*.suo
+/InteractDemo/*.user
+/InteractDemo/*.userprefs
+/InteractDemo/*.tmp
+/InteractDemo/.vs/
+/InteractDemo/.vscode/
+
+# Third-party Asset Store package with large native binaries.
+# Re-import OpenCV for Unity from the Asset Store on other machines.
+/InteractDemo/Assets/OpenCVForUnity/
+
+# Build outputs.
+/InteractDemo/*.apk
+/InteractDemo/*.aab
+/InteractDemo/*.unitypackage
+/InteractDemo/*.app

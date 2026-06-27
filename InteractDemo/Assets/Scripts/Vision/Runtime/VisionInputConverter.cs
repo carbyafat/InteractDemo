@@ -3,10 +3,16 @@ using UnityEngine.UI;
 
 namespace InteractDemo.Vision
 {
-    // Converts different Unity-side image sources into Texture2D.
-    // This keeps OpenCV analysis code simple: analyzers can keep accepting Texture2D only.
+    /// <summary>
+    /// Converts Unity image source types into Texture2D for analysis.
+    /// </summary>
     public static class VisionInputConverter
     {
+        /// <summary>
+        /// Converts a UI Image source into a Texture2D.
+        /// </summary>
+        /// <param name="image">UI Image whose Sprite should be analyzed.</param>
+        /// <returns>Texture2D for the Sprite area, or null if conversion fails.</returns>
         public static Texture2D FromImage(Image image)
         {
             if (image == null || image.sprite == null)
@@ -18,7 +24,6 @@ namespace InteractDemo.Vision
             Texture2D sourceTexture = image.sprite.texture;
             Rect textureRect = image.sprite.textureRect;
 
-            // If the sprite uses the whole texture, we can analyze the texture directly.
             if (Mathf.Approximately(textureRect.x, 0f) &&
                 Mathf.Approximately(textureRect.y, 0f) &&
                 Mathf.Approximately(textureRect.width, sourceTexture.width) &&
@@ -27,7 +32,6 @@ namespace InteractDemo.Vision
                 return sourceTexture;
             }
 
-            // If the sprite is packed inside a larger texture/atlas, copy only the sprite area.
             Color[] pixels = sourceTexture.GetPixels(
                 Mathf.RoundToInt(textureRect.x),
                 Mathf.RoundToInt(textureRect.y),
@@ -45,6 +49,11 @@ namespace InteractDemo.Vision
             return croppedTexture;
         }
 
+        /// <summary>
+        /// Converts a RawImage source into a Texture2D.
+        /// </summary>
+        /// <param name="rawImage">RawImage whose texture should be analyzed.</param>
+        /// <returns>Texture2D converted from the RawImage texture, or null if conversion fails.</returns>
         public static Texture2D FromRawImage(RawImage rawImage)
         {
             if (rawImage == null || rawImage.texture == null)
@@ -56,6 +65,11 @@ namespace InteractDemo.Vision
             return FromTexture(rawImage.texture);
         }
 
+        /// <summary>
+        /// Captures the current frame of a WebCamTexture as a Texture2D.
+        /// </summary>
+        /// <param name="webCamTexture">Running WebCamTexture to capture.</param>
+        /// <returns>Texture2D containing the current camera frame, or null if unavailable.</returns>
         public static Texture2D FromWebCamTexture(WebCamTexture webCamTexture)
         {
             if (webCamTexture == null)
@@ -82,6 +96,11 @@ namespace InteractDemo.Vision
             return texture;
         }
 
+        /// <summary>
+        /// Converts a general Unity Texture into a Texture2D when the texture type is supported.
+        /// </summary>
+        /// <param name="texture">Source texture, such as Texture2D, WebCamTexture, or RenderTexture.</param>
+        /// <returns>Texture2D converted from the source texture, or null if unsupported.</returns>
         public static Texture2D FromTexture(Texture texture)
         {
             if (texture == null)
@@ -103,6 +122,11 @@ namespace InteractDemo.Vision
             return null;
         }
 
+        /// <summary>
+        /// Reads a RenderTexture into a Texture2D.
+        /// </summary>
+        /// <param name="renderTexture">RenderTexture to read from.</param>
+        /// <returns>Texture2D containing the RenderTexture pixels, or null if input is invalid.</returns>
         public static Texture2D FromRenderTexture(RenderTexture renderTexture)
         {
             if (renderTexture == null)
